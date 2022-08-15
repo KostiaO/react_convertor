@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ConvertorResponseType } from "../../react-app-env";
 import { setQuery } from "../../store";
-import { getQuerySelector, getUahToPlnCourseSelector } from "../../store/selectors";
+import { getQuerySelector } from "../../store/selectors";
 
-export const UahToPln: React.FC = () => {
+interface Props {
+  textToShow: string,
+  inValute: ConvertorResponseType | null
+}
+
+export const UahToValute: React.FC<Props> = ({ inValute, textToShow }) => {
+
   const [valueToCalc, setValueToCalc] = useState<number>(0);
 
   const dispatch = useDispatch();
 
-  const inPLN = useSelector(getUahToPlnCourseSelector);
-
   const query = useSelector(getQuerySelector);
 
+
   const showCalc = () => {
-    if (inPLN) {
-      return inPLN.info.rate;
+    if (inValute) {
+      return inValute?.info.rate;
     }
 
     return 0;
@@ -46,7 +52,8 @@ export const UahToPln: React.FC = () => {
         Convert
       </button>
 
-      <h1>UAH - PLN {valueToCalc * showCalc()}</h1>
+      <h1>{textToShow} {valueToCalc * showCalc()}</h1>
     </div>
   )
+
 }
