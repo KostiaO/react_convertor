@@ -4,6 +4,8 @@ import { ConvertorResponseType } from "../../react-app-env";
 import { setQuery } from "../../store";
 import { getQuerySelector } from "../../store/selectors";
 
+import './UahToValue.css';
+
 interface Props {
   textToShow: string,
   inValute: ConvertorResponseType | null
@@ -31,7 +33,7 @@ export const UahToValute: React.FC<Props> = ({ inValute, textToShow }) => {
   }, []);
 
   return (
-    <div>
+    <div className="convertblock">
       <input 
         type="number" 
         value={query}
@@ -47,12 +49,13 @@ export const UahToValute: React.FC<Props> = ({ inValute, textToShow }) => {
 
       <button 
         type="button"
+        className="button is-medium"
         onClick={() => setValueToCalc(Number(query))}
       >
         Convert
       </button>
 
-      <h1>{textToShow} {valueToCalc * showCalc()}</h1>
+      <h1><span className="tag is-primary is-medium">{textToShow} =</span> <span className="box">{valueToCalc * showCalc()}</span></h1>
     </div>
   )
 
